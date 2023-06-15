@@ -70,9 +70,12 @@ where shelves.title like 'верхняя%' or shelves.title like 'нижняя%'
 ;
 
 -- 8
-update books 
-set books.friends_id = 1 
-where id =9
+UPDATE books
+JOIN authors_books ON authors_books.books_id = books.id
+JOIN authors ON authors_books.authors_id = authors.id
+SET books.friends_id = (SELECT friends.id FROM friends WHERE friends.name = 'Иванов Иван')
+WHERE authors.name = 'Данте Алигьери' AND books.title = 'Божественная комедия'
+and books.id > 0
 ;
 
 -- 9
